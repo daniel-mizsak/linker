@@ -3,6 +3,17 @@
 # System
 .DS_Store
 
+# Python
+__pycache__
+
+.coverage
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.tox
+coverage.xml
+htmlcov
+
 # Environments
 .env
 .venv

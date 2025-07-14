@@ -1,0 +1,46 @@
+# Build System
+[build-system]
+  requires = ["hatchling", "hatch-vcs"]
+  build-backend = "hatchling.build"
+
+# Project Metadata
+[project]
+  name = "linker"
+  dynamic = ["version"]
+  description = ""
+  readme = "README.md"
+  requires-python = ">=3.12"
+  license = { file = "LICENSE" }
+  authors = [{ name = "Daniel Mizsak", email = "info@pythonvilag.hu" }]
+  dependencies = [
+    "fastapi[standard]==0.116.1",
+    "psycopg2-binary==2.9.10",
+    "sqlmodel==0.0.24",
+    "validators==0.35.0",
+  ]
+
+[dependency-groups]
+  dev = ["mypy", "pre-commit", "pytest-cov", "pytest", "ruff", "tox"]
+
+# Tools
+# Hatch
+[tool.hatch]
+  [tool.hatch.build.targets.wheel]
+    packages = ["src/linker"]
+
+  [tool.hatch.version]
+    source = "vcs"
+
+# MyPy
+[tool.mypy]
+  ignore_missing_imports = true
+  pretty = true
+  show_column_numbers = true
+  show_error_context = true
+  strict = true
+  warn_unreachable = true
+  warn_unused_ignores = true
+
+# Pytest
+[tool.pytest.ini_options]
+  testpaths = ["tests"]

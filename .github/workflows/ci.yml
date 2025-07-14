@@ -28,3 +28,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MEGALINTER_CONFIG: .github/linters/.megalinter.yml
+
+  tox:
+    uses: daniel-mizsak/workflows/.github/workflows/tox.yml@v1.0.0
+    with:
+      python_versions: "['3.12']"
+      codecov: true
+    secrets: inherit
