@@ -1,0 +1,30 @@
+---
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  schedule:
+    - cron: "0 12 * * 6"  # Every Saturday at 12:00
+
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Check out the codebase
+        uses: actions/checkout@v4.2.2
+
+      - name: Run megalinter
+        uses: oxsecurity/megalinter/flavors/cupcake@v8.8.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MEGALINTER_CONFIG: .github/linters/.megalinter.yml
